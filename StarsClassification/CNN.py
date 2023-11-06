@@ -110,9 +110,9 @@ plt.ylabel('Accuracy')
 # Obter a data e hora atuais
 data_hora_atual = datetime.datetime.now()
 # Formatar a data e hora no formato desejado (por exemplo, YYYYMMDD_HHMMSS)
-data_hora_formatada = data_hora_atual.strftime('%Y%m%d_%H%M%S')
+data_hora_formatada = data_hora_atual.strftime('%Y_%m_%d_%Hh%Mm')
 # Nome do arquivo com data e hora
-nome_do_arquivo = f'figura_{data_hora_formatada}.png'
+nome_do_arquivo = f'logs/report_{data_hora_formatada}.png'
 # Salvar a figura em um arquivo com data e hora no nome
 plt.savefig(nome_do_arquivo)
 # Exibindo o gráfico
