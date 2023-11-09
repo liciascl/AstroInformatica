@@ -52,6 +52,8 @@ num_images_to_test = 5
 # Preparar a figura para plotagem
 fig, axes = plt.subplots(num_images_to_test, 2, figsize=(10, 20))
 
+
+
 for i in range(num_images_to_test):
     random_index = random.randint(0, len(X_test) - 1)
     random_test_image = X_test[random_index].reshape(1, -1)
@@ -59,6 +61,9 @@ for i in range(num_images_to_test):
 
     # Classificando a imagem com o modelo treinado
     predicted_class = clf.predict(random_test_image)
+
+    # Realizar previsões no conjunto de teste
+    predicted_class = clf.predict(X_test.reshape(len(X_test), -1))
 
     # Exibindo a imagem
     axes[i, 0].imshow(X_test[random_index], cmap='gray')
@@ -68,6 +73,16 @@ for i in range(num_images_to_test):
     # Exibindo a classe prevista
     axes[i, 1].text(0.5, 0.5, f"Classe Prevista: {predicted_class[0]}", fontsize=12, ha='center')
     axes[i, 1].axis('off')
+
+
+# Avaliar o desempenho do modelo
+accuracy = accuracy_score(y_test, y_pred)
+print(f'Acurácia do modelo : {accuracy:.2f}')
+
+# Relatório de classificação
+print(f'Relatório de classificação):\n')
+print(classification_report(y_test, y_pred, zero_division=1))  # Definindo zero_division para 1
+print('-' * 40)
 
 plt.tight_layout()
 plt.show()
