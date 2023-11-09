@@ -3,9 +3,11 @@ import cv2
 import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, classification_report
+from sklearn.metrics import accuracy_score, classification_report , confusion_matrix
 import random
 import matplotlib.pyplot as plt
+import seaborn as sns
+import pandas as pd
 
 # Diretório contendo as imagens
 data_dir = "data/"
@@ -83,6 +85,22 @@ print(f'Acurácia do modelo : {accuracy:.2f}')
 print(f'Relatório de classificação):\n')
 print(classification_report(y_test, y_pred, zero_division=1))  # Definindo zero_division para 1
 print('-' * 40)
+
+# Calcular a matriz de confusão
+confusion = confusion_matrix(y_test, y_pred)
+
+# Definir as classes (rótulos)
+classes = np.unique(y_test)
+
+# Criar um DataFrame para visualização mais fácil
+confusion_df = pd.DataFrame(confusion, index=classes, columns=classes)
+
+# Visualizar a matriz de confusão usando seaborn
+plt.figure(figsize=(8, 6))
+sns.heatmap(confusion_df, annot=True, cmap='Blues', fmt='d')
+plt.xlabel('Predicted')
+plt.ylabel('True')
+plt.title('Confusion Matrix')
 
 plt.tight_layout()
 plt.show()
